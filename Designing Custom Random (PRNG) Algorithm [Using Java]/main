@@ -1,0 +1,123 @@
+/**
+ * TestArray - Example usage combining user input with NovelRandomGenerator
+ * Demonstrates practical application of the custom random number generator
+ */
+import java.util.Scanner;
+
+public class TestArray {
+    
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        // Example 1: User input array
+        System.out.println("=== Example 1: User Input Array ===");
+        double[] myList = new double[10];
+        System.out.print("Enter " + myList.length + " values: ");
+        for (int i = 0; i < myList.length; i++) {
+            myList[i] = input.nextDouble();
+        }
+        
+        System.out.println("\nYou entered:");
+        for (int i = 0; i < myList.length; i++) {
+            System.out.printf("myList[%d] = %.2f\n", i, myList[i]);
+        }
+        
+        // Example 2: Generate random integers using NovelRandomGenerator
+        System.out.println("\n=== Example 2: Random Integer Generation ===");
+        System.out.println("Generating 10 random integers between 1 and 100:");
+        for (int i = 0; i < 10; i++) {
+            int random = NovelRandomGenerator.generateRandom(1, 100);
+            System.out.print(random + " ");
+        }
+        
+        // Example 3: Generate random doubles
+        System.out.println("\n\n=== Example 3: Random Double Generation ===");
+        System.out.println("Generating 10 random doubles between 0.0 and 100.0:");
+        for (int i = 0; i < 10; i++) {
+            double random = NovelRandomGenerator.generateRandom(0.0, 100.0);
+            System.out.printf("%.2f ", random);
+        }
+        
+        // Example 4: Generate random floats
+        System.out.println("\n\n=== Example 4: Random Float Generation ===");
+        System.out.println("Generating 5 random floats between 10.5 and 99.9:");
+        for (int i = 0; i < 5; i++) {
+            float random = NovelRandomGenerator.generateRandom(10.5f, 99.9f);
+            System.out.printf("%.2f ", random);
+        }
+        
+        // Example 5: Generate array using helper method
+        System.out.println("\n\n=== Example 5: Random Array Generation ===");
+        int[] randomArray = NovelRandomGenerator.generateRandomArray(15, 1, 50);
+        System.out.println("Array of 15 random integers [1-50]:");
+        for (int num : randomArray) {
+            System.out.print(num + " ");
+        }
+        
+        // Example 6: Generate unique random numbers
+        System.out.println("\n\n=== Example 6: Unique Random Numbers ===");
+        int[] uniqueArray = NovelRandomGenerator.generateUniqueRandomArray(10, 1, 20);
+        System.out.println("Array of 10 unique random integers [1-20]:");
+        for (int num : uniqueArray) {
+            System.out.print(num + " ");
+        }
+        
+        // Example 7: Mixed types demonstration
+        System.out.println("\n\n=== Example 7: Mixed Type Generation ===");
+        System.out.println("Demonstrating method overloading:");
+        System.out.println("  int:    " + NovelRandomGenerator.generateRandom(1, 100));
+        System.out.println("  double: " + NovelRandomGenerator.generateRandom(1.0, 100.0));
+        System.out.println("  float:  " + NovelRandomGenerator.generateRandom(1.0f, 100.0f));
+        System.out.println("  long:   " + NovelRandomGenerator.generateRandom(1L, 100L));
+        System.out.println("  byte:   " + NovelRandomGenerator.generateRandom((byte)1, (byte)100));
+        System.out.println("  short:  " + NovelRandomGenerator.generateRandom((short)1, (short)100));
+        
+        // Example 8: Statistical distribution test
+        System.out.println("\n=== Example 8: Distribution Test ===");
+        System.out.println("Generating 1000 random numbers and counting distribution:");
+        int[] buckets = new int[10]; // 10 buckets for ranges 0-9, 10-19, ..., 90-99
+        
+        for (int i = 0; i < 1000; i++) {
+            int num = NovelRandomGenerator.generateRandom(0, 99);
+            buckets[num / 10]++;
+        }
+        
+        System.out.println("Range    Count");
+        for (int i = 0; i < buckets.length; i++) {
+            System.out.printf("%2d-%2d:   %d\n", i*10, i*10+9, buckets[i]);
+        }
+        
+        // Example 9: Reproducibility demonstration
+        System.out.println("\n=== Example 9: Reproducible Sequences ===");
+        NovelRandomGenerator.setSeed(42);
+        System.out.print("Sequence with seed 42: ");
+        for (int i = 0; i < 5; i++) {
+            System.out.print(NovelRandomGenerator.generateRandom(1, 100) + " ");
+        }
+        
+        NovelRandomGenerator.setSeed(42);
+        System.out.print("\nSame seed again:       ");
+        for (int i = 0; i < 5; i++) {
+            System.out.print(NovelRandomGenerator.generateRandom(1, 100) + " ");
+        }
+        System.out.println(" (Identical!)");
+        
+        // Example 10: Interactive random number generation
+        System.out.println("\n=== Example 10: Interactive Generation ===");
+        System.out.print("Enter minimum value: ");
+        int min = input.nextInt();
+        System.out.print("Enter maximum value: ");
+        int max = input.nextInt();
+        System.out.print("How many random numbers to generate? ");
+        int count = input.nextInt();
+        
+        System.out.println("\nGenerated " + count + " random numbers between " + min + " and " + max + ":");
+        for (int i = 0; i < count; i++) {
+            System.out.print(NovelRandomGenerator.generateRandom(min, max) + " ");
+            if ((i + 1) % 10 == 0) System.out.println(); // New line every 10 numbers
+        }
+        
+        input.close();
+        System.out.println("\n\n=== Test Complete ===");
+    }
+}
